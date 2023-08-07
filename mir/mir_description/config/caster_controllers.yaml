@@ -1,0 +1,115 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+    joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    forward_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+    forward_position_controller:
+      type: position_controllers/JointGroupPositionController
+
+velocity_controller:
+  ros__parameters:
+    joints:
+      - mobile_left_wheel_joint
+      - mobile_right_wheel_joint
+      - mobile_fl_caster_rotation_joint
+      - mobile_fl_caster_wheel_joint
+      - mobile_fr_caster_rotation_joint
+      - mobile_fr_caster_wheel_joint
+      - mobile_bl_caster_rotation_joint
+      - mobile_bl_caster_wheel_joint
+      - mobile_br_caster_rotation_joint
+      - mobile_br_caster_wheel_joint
+
+    command_interfaces:
+      - position
+
+    state_interfaces:
+      - position
+      - velocity
+
+joint_trajectory_controller:
+  ros__parameters:
+    joints:
+      - mobile_left_wheel_joint
+      - mobile_right_wheel_joint
+      - mobile_fl_caster_rotation_joint
+      - mobile_fl_caster_wheel_joint
+      - mobile_fr_caster_rotation_joint
+      - mobile_fr_caster_wheel_joint
+      - mobile_bl_caster_rotation_joint
+      - mobile_bl_caster_wheel_joint
+      - mobile_br_caster_rotation_joint
+      - mobile_br_caster_wheel_joint
+    command_interfaces:
+      - position
+
+    state_interfaces:
+      - position
+      - velocity
+
+forward_velocity_controller:
+  ros__parameters:
+    joints:
+      - mobile_left_wheel_joint
+      - mobile_right_wheel_joint
+      - mobile_fl_caster_rotation_joint
+      - mobile_fl_caster_wheel_joint
+      - mobile_fr_caster_rotation_joint
+      - mobile_fr_caster_wheel_joint
+      - mobile_bl_caster_rotation_joint
+      - mobile_bl_caster_wheel_joint
+      - mobile_br_caster_rotation_joint
+      - mobile_br_caster_wheel_joint
+    interface_name: velocity
+
+forward_position_controller:
+  ros__parameters:
+    joints:
+      - mobile_left_wheel_joint
+      - mobile_right_wheel_joint
+      - mobile_fl_caster_rotation_joint
+      - mobile_fl_caster_wheel_joint
+      - mobile_fr_caster_rotation_joint
+      - mobile_fr_caster_wheel_joint
+      - mobile_bl_caster_rotation_joint
+      - mobile_bl_caster_wheel_joint
+      - mobile_br_caster_rotation_joint
+      - mobile_br_caster_wheel_joint
+# controller_manager:
+#   ros__parameters:
+#     update_rate: 100  # Hz
+
+#     joint_trajectory_controller:
+#       type: joint_trajectory_controller/JointTrajectoryController
+
+#     joint_state_broadcaster:
+#       type: joint_state_broadcaster/JointStateBroadcaster
+
+# joint_trajectory_controller:
+#   ros__parameters:
+#     joints:
+#       - bl_caster_rotation_joint
+#       - br_caster_rotation_joint
+#       - fl_caster_rotation_joint
+#       - fr_caster_rotation_joint
+#       - bl_caster_wheel_joint
+#       - br_caster_wheel_joint
+#       - fl_caster_wheel_joint
+#       - fr_caster_wheel_joint
+#     interface_name: position
+#     command_interfaces:
+#       - position
+#     state_interfaces:
+#       - position
+#       - velocity

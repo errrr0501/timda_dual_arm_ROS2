@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="timda_body_ros2_control" params="
+    name
+    use_fake_hardware:=true fake_sensor_commands:=true
+    sim_gazebo:=false
+    sim_ignition:=false
+    ">
+
+  <ros2_control name="${name}" type="system">
+    <!-- <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware> -->
+      <!-- <xacro:if value="${sim_gazebo}">
+        <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+      </xacro:if>
+      <xacro:if value="${sim_ignition}">
+        <plugin>ign_ros2_control/IgnitionSystem</plugin>
+      </xacro:if> -->
+      <!-- <xacro:if value="${use_fake_hardware}">
+        <plugin>mock_components/GenericSystem</plugin>
+        <param name="fake_sensor_commands">${fake_sensor_commands}</param>
+        <param name="state_following_offset">0.0</param>
+      </xacro:if> -->
+      <hardware>
+        <plugin>mock_components/GenericSystem</plugin>
+        <param name="fake_sensor_commands">${fake_sensor_commands}</param>
+        <param name="state_following_offset">0.0</param>
+      </hardware>
+<!-- <command_interface name="velocity"/> -->
+      <joint name="joint_right">
+        <command_interface name="position"/>
+        <param name="min">-1</param>
+        <param name="max">1</param>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="joint_left">
+        <command_interface name="position"/>
+        <param name="min">-1</param>
+        <param name="max">1</param>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+  </ros2_control>
+
+  </xacro:macro>
+
+    <!-- <gazebo>
+      <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+        <robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type>
+        <parameters>$(find mir_description)/config/caster_controllers.yaml</parameters>
+      </plugin>
+    </gazebo> -->
+
+</robot>
