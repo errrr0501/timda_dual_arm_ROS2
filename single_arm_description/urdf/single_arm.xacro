@@ -449,8 +449,8 @@
 	      </geometry>
 	    </collision>
 	  </link> -->
-<!-- 
-      <xacro:if value="${(side == 'r_') or (side == 'l_')}">
+
+      <!-- <xacro:if value="${'link' in child}">
 		<joint
 			name="${side}joint_7"
 			type="revolute">
@@ -475,16 +475,16 @@
 		</joint>
     </xacro:if> -->
 
-		<!-- <joint
+		<joint
 			name="${side}joint_7"
 			type="revolute">
 			<origin
 				xyz="0 0.03680 0.135"
-				rpy="0 0 ${toolrot}" /> -->
+				rpy="0 0 ${toolrot}" />
 				<!-- rpy="1.5708 ${toolrot} 0" /> -->
 				<!-- xyz="-0.008041 0.038 0.13545" -->
 				<!-- xyz="-0.0025 0.038 0.135" -->
-			<!-- <parent
+			<parent
 				link="${side}link_6" />
 			<child
 				link="${child}" />
@@ -496,7 +496,7 @@
 				effort="1000"
                 velocity="6.5" />
           <dynamics damping="0.7"/>
-		</joint> -->
+		</joint>
           <!--
 	  <link
 	    name="${side}link_8">

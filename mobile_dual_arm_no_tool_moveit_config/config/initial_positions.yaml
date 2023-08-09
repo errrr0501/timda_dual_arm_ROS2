@@ -1,0 +1,19 @@
+# Default initial positions for mobile_dual_arm's ros2_control fake system
+
+initial_positions:
+  joint_left: 0
+  joint_right: 0
+  l_joint_1: 0
+  l_joint_2: 0
+  l_joint_3: 0
+  l_joint_4: 0
+  l_joint_5: 0
+  l_joint_6: 0
+  l_joint_7: 0
+  r_joint_1: 0
+  r_joint_2: 0
+  r_joint_3: 0
+  r_joint_4: 0
+  r_joint_5: 0
+  r_joint_6: 0
+  r_joint_7: 0

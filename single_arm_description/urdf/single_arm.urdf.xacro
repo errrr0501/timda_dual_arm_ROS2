@@ -5,14 +5,24 @@
   
   <link name="world"/>
 
-  <xacro:single_arm parent="world" side="" child="" toolrot="-1.57">
+  <!-- <xacro:single_arm parent="world" side="" child="" toolrot="-1.57">
     <origin xyz="0 0 0.1" rpy="0 0 0" />
-  </xacro:single_arm>
+  </xacro:single_arm> -->
 
   <!-- <link name="r_tool_link"/> -->
 
-  <!-- <xacro:single_arm side="r"  parent="slide_right" child="r_tool_link" toolrot="-1.57">
-    <origin xyz="0.0 0.1151 0.0" rpy="1.57 3.1415926 3.1415926" />
-  </xacro:single_arm> -->
+  <link name="tool_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <xacro:single_arm side=""  parent="world" child="tool_link" toolrot="-1.57">
+    <origin xyz="0 0 0.1" rpy="0 0 0" />
+  </xacro:single_arm>
+
   <xacro:single_arm_ros2_control name="single_arm_ros2_control" side=""/>
 </robot>

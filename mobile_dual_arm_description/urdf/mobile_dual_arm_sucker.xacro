@@ -8,13 +8,14 @@
   <xacro:include filename="$(find single_arm_description)/urdf/single_arm.xacro" />
   <xacro:include filename="$(find timda_body)/urdf/timda_body.xacro" />
   <!-- <xacro:include filename="$(find slide_rail)/urdf/slide_rail.xacro" /> -->
-  <!-- <xacro:include filename="$(find suction_urdf)/urdf/suction_urdf.xacro" /> -->
+  <xacro:include filename="$(find suction_urdf)/urdf/suction_urdf.xacro" />
   <!-- <xacro:include filename="$(find single_arm_description)/urdf/materials.xacro" /> -->
   <!-- <xacro:include filename="$(find mobile_dual_arm_description)/urdf/mobile_dual_arm.gazebo" /> -->
   <!--xacro:include filename="$(find mobile_table)/urdf/mobile_table.xacro" /-->
   <xacro:include filename="$(find single_arm_description)/urdf/single_arm.ros2_control.xacro" />
   <xacro:include filename="$(find mir_description)/urdf/mir.ros2_control.xacro" />
   <xacro:include filename="$(find timda_body)/urdf/timda_body.ros2_control.xacro" />
+  <xacro:include filename="$(find suction_urdf)/urdf/suction.ros2_control.xacro" />
 
 
   <link name="world"/>
@@ -56,32 +57,24 @@
   </joint>
 
   <xacro:mir_100 prefix="mobile_" ns=""/>
-
-  <link name="r_tool_link">
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </visual>
-  </link>
-
-  <link name="l_tool_link">
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </visual>
-  </link>
-
+  
   <xacro:single_arm side="r_"  parent="slide_right" child="r_tool_link" toolrot="-1.57">
     <origin xyz="0.0 0.1151 0.0" rpy="1.57 3.1415926 3.1415926" />
   </xacro:single_arm>
 
+
+  <xacro:suction side="r"  parent="r_tool_link">
+    <origin xyz="0 -0.016 0" rpy="0 0 -1.57" />
+  </xacro:suction>
+
   <xacro:single_arm side="l_"  parent="slide_left" child="l_tool_link" toolrot="1.57">
     <origin xyz="0.0 0.1151 0.0" rpy="-1.57 0 0" />
   </xacro:single_arm>
+
+  
+  <xacro:suction side="l"  parent="l_tool_link">
+    <origin xyz="0 0.016 0" rpy="0 0 1.57" />
+  </xacro:suction>
 
 
   <!--joint name="fixed" type="fixed">
@@ -157,7 +150,6 @@
     <parent link="base_link"/>
     <child link="Bin"/>
   </joint>
-  <!-- <xacro:mobile_dual_arm_ros2_control name="mobile_dual_arm_ros2_control"/> -->
 
   <xacro:single_arm_ros2_control name="right_single_arm_ros2_control" side="r_"/>
 
@@ -166,6 +158,10 @@
   <xacro:mir_100_ros2_control prefix = "mobile_" name ="mir_100_ros2_control" />
 
   <xacro:timda_body_ros2_control name ="timda_body_ros2_control" />
+
+  <xacro:suction_ros2_control name="right_suction_ros2_control" side="r_"/>
+
+  <xacro:suction_ros2_control name="left_suction_ros2_control" side="l_"/>
 </robot>
 
 

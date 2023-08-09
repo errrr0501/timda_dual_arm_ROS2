@@ -6,6 +6,7 @@
   <xacro:include filename="$(find suction_urdf)/urdf/suction.gazebo.xacro" /> -->
 
   <xacro:macro name="suction" params="side parent *origin">  
+
     <link
       name="${side}_tool_link">
       <inertial>
