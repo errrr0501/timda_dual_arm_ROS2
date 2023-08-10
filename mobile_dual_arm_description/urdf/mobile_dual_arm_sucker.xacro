@@ -151,13 +151,15 @@
     <child link="Bin"/>
   </joint>
 
-  <xacro:single_arm_ros2_control name="right_single_arm_ros2_control" side="r_"/>
+  <xacro:arg name="use_fake_hardware" default="true" />
 
-  <xacro:single_arm_ros2_control name="left_single_arm_ros2_control" side="l_"/>
+  <xacro:single_arm_ros2_control name="right_single_arm_ros2_control" side="r_" use_fake_hardware="$(arg use_fake_hardware)"/>
+
+  <xacro:single_arm_ros2_control name="left_single_arm_ros2_control" side="l_" use_fake_hardware="$(arg use_fake_hardware)"/>
   
   <xacro:mir_100_ros2_control prefix = "mobile_" name ="mir_100_ros2_control" />
 
-  <xacro:timda_body_ros2_control name ="timda_body_ros2_control" />
+  <xacro:timda_body_ros2_control name ="timda_body_ros2_control" use_fake_hardware="$(arg use_fake_hardware)"/>
 
   <xacro:suction_ros2_control name="right_suction_ros2_control" side="r_"/>
 

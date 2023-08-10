@@ -20,7 +20,7 @@ velocity_controller:
       - l_joint_4
       - l_joint_5
       - l_joint_6
-      # - l_joint_7
+      - l_joint_7
       # - l_tool_joint
       # - l_end_joint1
       # - l_end_joint2
@@ -37,7 +37,7 @@ joint_trajectory_controller:
       - l_joint_4
       - l_joint_5
       - l_joint_6
-      # - l_joint_7
+      - l_joint_7
       # - l_tool_joint
       # - l_end_joint1
       # - l_end_joint2

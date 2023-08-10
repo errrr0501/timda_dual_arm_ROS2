@@ -8,7 +8,10 @@
   <license>BSD-2.0</license>
 
   <buildtool_depend>ament_cmake_ros</buildtool_depend>
-  <depend>hiwin_interfaces</depend>
+  <depend>rclcpp_lifecycle</depend>
+  <depend>lifecycle_msgs</depend>
+  <depend>hardware_interface</depend>
+  <depend>pluginlib</depend>
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 

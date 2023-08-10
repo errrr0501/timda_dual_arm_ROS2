@@ -15,7 +15,7 @@
 import os
 import launch
 from launch.substitutions import Command, LaunchConfiguration
-import launch_ros
+from launch_ros.descriptions import ParameterValue
 
 from ament_index_python.packages import get_package_share_directory
 
@@ -30,13 +30,15 @@ import xacro
 
 
 def generate_launch_description():
+    use_fake_hardware = LaunchConfiguration('use_fake_hardware')
     robot_name = "mobile_dual_arm"
     package_name = robot_name + "_description"
     rviz_config = os.path.join(get_package_share_directory(
         package_name), "launch", robot_name + ".rviz")
     robot_description = os.path.join(get_package_share_directory(
-        package_name), "urdf", robot_name + "_sucker" + ".xacro")
-    robot_description_config = xacro.process_file(robot_description)
+        package_name), "urdf", robot_name + "_sucker"+ ".xacro")
+    robot_description_config = Command(['xacro ', robot_description, ' use_fake_hardware:=', use_fake_hardware])
+    xacro_params = {'robot_description': ParameterValue(robot_description_config, value_type=str), 'use_fake_hardware': use_fake_hardware}   
 
     controller_config = os.path.join(
         get_package_share_directory(
@@ -63,22 +65,29 @@ def generate_launch_description():
             'mir_description'), "config", "caster_controllers.yaml"
     )
 
+    mobile_dual_arm_control_node =  Node(
+        package="controller_manager",
+        executable="ros2_control_node",
+        parameters=[xacro_params, controller_config],
+        output="screen",
+        )  
+
+    robot_state_publisher_node = Node(
+            package="robot_state_publisher",
+            executable="robot_state_publisher",
+            name="robot_state_publisher",
+            parameters=[xacro_params],
+            output="screen",
+        )  
 
     return LaunchDescription([
 
         DeclareLaunchArgument(
-          'joint_state_publisher_enabled',
-          default_value='false',
-          description='Enable to publish joint states using joint state publisher'),
+            'use_fake_hardware',
+            default_value="true",
+            description='Flag to use fake hardware time'), 
 
-        Node(
-            package="controller_manager",
-            executable="ros2_control_node",
-            parameters=[
-                {"robot_description": robot_description_config.toxml()}, controller_config],
-            output="screen",
-        ),
-
+        mobile_dual_arm_control_node,
 
         Node(
             package="controller_manager",
@@ -102,15 +111,7 @@ def generate_launch_description():
         ),
 
 
-        Node(
-            package="robot_state_publisher",
-            executable="robot_state_publisher",
-            name="robot_state_publisher",
-            parameters=[
-                {"robot_description": robot_description_config.toxml()}],
-            output="screen",
-        ),
-
+        robot_state_publisher_node,
 
         Node(
             package="rviz2",
