@@ -160,13 +160,21 @@
 
   <xacro:arg name="use_fake_hardware" default="true" />
 
-  <xacro:single_arm_ros2_control name="right_single_arm_ros2_control" side="r_" use_fake_hardware="$(arg use_fake_hardware)"/>
+  <xacro:arg name="right_arm_port" default="wrs/arm_right" />
 
-  <xacro:single_arm_ros2_control name="left_single_arm_ros2_control" side="l_" use_fake_hardware="$(arg use_fake_hardware)"/>
+  <xacro:arg name="left_arm_port" default="wrs/arm_left" />
+
+  <xacro:single_arm_ros2_control name = "right_single_arm_ros2_control" side = "r_" use_fake_hardware = "$(arg use_fake_hardware)" usb_port = "$(arg right_arm_port)"/>
+
+  <xacro:single_arm_ros2_control name = "left_single_arm_ros2_control" side = "l_" use_fake_hardware = "$(arg use_fake_hardware)" usb_port = "$(arg left_arm_port)"/>
   
   <xacro:mir_100_ros2_control prefix = "mobile_" name ="mir_100_ros2_control" />
 
-  <xacro:timda_body_ros2_control name ="timda_body_ros2_control" use_fake_hardware="$(arg use_fake_hardware)"/>
+  <xacro:timda_body_ros2_control name ="timda_body_ros2_control"  side = "right" use_fake_hardware="$(arg use_fake_hardware)"/>
+
+  <xacro:timda_body_ros2_control name ="right_slider_ros2_control"  side = "right" use_fake_hardware="$(arg use_fake_hardware)"/>
+
+  <xacro:timda_body_ros2_control name ="left_slider_ros2_control" side = "left" use_fake_hardware="$(arg use_fake_hardware)"/>
 </robot>
 
 

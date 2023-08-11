@@ -1,12 +1,16 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="single_arm_ros2_control" params="name side use_fake_hardware=true">
+  <xacro:macro name="single_arm_ros2_control" params="
+    name 
+    side 
+    usb_port:=/dev/ttyUSB0
+    use_fake_hardware:=true">
 
     <ros2_control name="${name}" type="system">
       <hardware>
         <plugin>dynamixel_hardware/DynamixelHardware</plugin>
-        <param name="usb_port">/dev/ttyUSB0</param>
+        <param name="usb_port">${usb_port}</param>
         <param name="baud_rate">115200</param>
         <xacro:if value="${use_fake_hardware}">
           <param name="use_dummy">true</param>
