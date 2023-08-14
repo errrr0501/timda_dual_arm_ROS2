@@ -1,5 +1,15 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.5)
 project(linear_motion)
+
+# Default to C99
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 99)
+endif()
+
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -83,6 +93,47 @@ set(LIBMODBUS_CORE_FILES
   ${LIBMODBUS_PATH}/src/modbus.c
 )
 
+
+add_library(
+  ${PROJECT_NAME}
+  SHARED
+  src/linear_z.cpp
+  ${LIBMODBUS_CORE_FILES}
+)
+
+target_compile_features(${PROJECT_NAME} 
+  PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_include_directories(${PROJECT_NAME} PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${LIBMODBUS_PATH}/src>
+  $<BUILD_INTERFACE:${LIBMODBUS_PATH}>
+  $<INSTALL_INTERFACE:include>)
+
+
+target_include_directories(
+  ${PROJECT_NAME}
+  PRIVATE
+  include
+)
+ament_target_dependencies(
+  ${PROJECT_NAME}
+  rclcpp
+  rclcpp_lifecycle
+  lifecycle_msgs
+  hardware_interface
+  pluginlib
+  )
+
+
+install(
+  TARGETS ${PROJECT_NAME}
+  DESTINATION lib
+)
+install(
+  DIRECTORY include/
+  DESTINATION include
+)
+
 #add_library(${PROJECT_NAME} SHARED
 #  src/hiwin_libmodbus.cpp
 #  ${LIBMODBUS_CORE_FILES}
@@ -143,5 +194,11 @@ ament_export_libraries(
 #ament_export_targets(
 #  export_${PROJECT_NAME}
 #)
+
+ament_export_dependencies(
+  rclcpp
+  hardware_interface
+  pluginlib
+)
 
 ament_package()

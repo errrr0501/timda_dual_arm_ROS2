@@ -170,8 +170,6 @@
   
   <xacro:mir_100_ros2_control prefix = "mobile_" name ="mir_100_ros2_control" />
 
-  <xacro:timda_body_ros2_control name ="timda_body_ros2_control"  side = "right" use_fake_hardware="$(arg use_fake_hardware)"/>
-
   <xacro:timda_body_ros2_control name ="right_slider_ros2_control"  side = "right" use_fake_hardware="$(arg use_fake_hardware)"/>
 
   <xacro:timda_body_ros2_control name ="left_slider_ros2_control" side = "left" use_fake_hardware="$(arg use_fake_hardware)"/>

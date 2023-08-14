@@ -1,43 +1,3 @@
-#include <errno.h>
-#include <unistd.h>
-#include <string.h>
-#include <boost/thread.hpp>
-#include <math.h>
-
-#include "ros/ros.h"
-#include "std_msgs/Int32.h"
-#include "std_msgs/Float64.h"
-#include "std_msgs/String.h"
-#include "linear_motion/Slide_Feedback.h"
-#include "manipulator_h_base_module_msgs/SlideCommand.h"   //new
-
-#include "modbus/modbus.h"
-
-// #define MODE_GET_CURR_POS 291
-#define ADDRESS_CMD  88
-#define ADDRESS_FDB  204
-#define MAX_SPEED    20000
-#define MIN_SPEED    -20000
-#define ACCELERATION 40000
-#define DECELERATION 40000
-
-#define CMD_LENGTH 16
-#define FDB_LENGTH 6
-
-uint16_t cmd_arr[CMD_LENGTH] = {0, 0, 0, 1, 0, 0, 0, 0, 0, ACCELERATION, 0, DECELERATION, 0, 800, 0, 1};
-uint16_t fdb_val[FDB_LENGTH] = {0, 0, 0, 0, 0, 0};
-
-modbus_t *ct    = nullptr;
-int goal_pos    = 0;
-int curr_pos    = 0;
-int curr_speed  = 0;
-int cmd_speed   = 0;
-double smp_time = 0.008;
-double smp_deleration = 0;
-boost::thread  *com_driver_thread_;
-linear_motion::Slide_Feedback msg_fdb;
-
-
 #ifndef SLIDER_HARDWARE__SLIDER_HARDWARE_HPP_
 #define SLIDER_HARDWARE__SLIDER_HARDWARE_HPP_
 
@@ -55,10 +15,22 @@ linear_motion::Slide_Feedback msg_fdb;
 #include <map>
 #include <vector>
 
+#include "linear_motion/visiblity_control.h"
 #include "rclcpp/macros.hpp"
+#include <modbus.h>
 
 using hardware_interface::CallbackReturn;
 using hardware_interface::return_type;
+
+#define ADDRESS_CMD  88
+#define ADDRESS_FDB  204
+#define MAX_SPEED    20000
+#define MIN_SPEED    -20000
+#define ACCELERATION 40000
+#define DECELERATION 40000
+
+#define CMD_LENGTH 16
+#define FDB_LENGTH 6
 
 namespace slider_hardware
 {
@@ -124,7 +96,7 @@ public:
   int cmd_speed   = 0;
   double smp_time = 0.008;
   double smp_deleration = 0;
-  boost::thread  *com_driver_thread_;
+//   boost::thread  *com_driver_thread_;
 
 private:
   return_type enable_torque(const bool enabled);
@@ -137,15 +109,17 @@ private:
   CallbackReturn set_joint_velocities();
   CallbackReturn set_joint_params();
 
-  DynamixelWorkbench dynamixel_workbench_;
-  std::map<const char * const, const ControlItem *> control_items_;
+  return_type write_command();
+
+//   DynamixelWorkbench dynamixel_workbench_;
+//   std::map<const char * const, const ControlItem *> control_items_;
   std::vector<Joint> joints_;
   std::vector<uint8_t> joint_ids_;
-  bool torque_enabled_{false};
+//   bool torque_enabled_{false};
   ControlMode control_mode_{ControlMode::Position};
   bool mode_changed_{false};
-  bool use_dummy_{false};
+//   bool use_dummy_{false};
 };
-}  // namespace dynamixel_hardware
+}  // namespace slider_hardware
 
-#endif  // DYNAMIXEL_HARDWARE__DYNAMIXEL_HARDWARE_HPP_
+#endif  // SLIDER_HARDWARE__SLIDER_HARDWARE_HPP_
