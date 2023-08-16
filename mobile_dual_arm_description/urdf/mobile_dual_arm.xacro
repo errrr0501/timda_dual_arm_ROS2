@@ -160,9 +160,9 @@
 
   <xacro:arg name="use_fake_hardware" default="true" />
 
-  <xacro:arg name="right_arm_port" default="wrs/arm_right" />
+  <xacro:arg name="right_arm_port" default="/dev/wrs/arm_right" />
 
-  <xacro:arg name="left_arm_port" default="wrs/arm_left" />
+  <xacro:arg name="left_arm_port" default="/dev/wrs/arm_left" />
 
   <xacro:single_arm_ros2_control name = "right_single_arm_ros2_control" side = "r_" use_fake_hardware = "$(arg use_fake_hardware)" usb_port = "$(arg right_arm_port)"/>
 

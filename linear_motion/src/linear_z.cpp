@@ -78,16 +78,6 @@ CallbackReturn SliderHardware::on_init(const hardware_interface::HardwareInfo & 
     joints_[i].prev_command.effort = joints_[i].command.effort;
     RCLCPP_INFO(rclcpp::get_logger(kSliderHardware), "joint_id %d: %d", i, joint_ids_[i]);
   }
-//   joints_.state.position = std::numeric_limits<double>::quiet_NaN();
-//   joints_.state.velocity = std::numeric_limits<double>::quiet_NaN();
-//   joints_.state.effort = std::numeric_limits<double>::quiet_NaN();
-//   joints_.command.position = std::numeric_limits<double>::quiet_NaN();
-//   joints_.command.velocity = std::numeric_limits<double>::quiet_NaN();
-//   joints_.command.effort = std::numeric_limits<double>::quiet_NaN();
-//   joints_.prev_command.position = joints_.command.position;
-//   joints_.prev_command.velocity = joints_.command.velocity;
-//   joints_.prev_command.effort = joints_.command.effort;
-//   RCLCPP_INFO(rclcpp::get_logger(kSliderHardware), "joint_id %d: %d", i, joint_ids_[i]);
 
   auto usb_port = info_.hardware_parameters.at("usb_port");
   auto side = info_.hardware_parameters.at("side");
