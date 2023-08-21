@@ -1,4 +1,4 @@
-#include "linear_motion/slide.h"
+#include "linear_motion/slider_hardware.hpp"
 #include <ctime>
 
 #include <algorithm>

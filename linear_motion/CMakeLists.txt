@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(linear_motion)
+project(slider_hardware)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -97,7 +97,7 @@ set(LIBMODBUS_CORE_FILES
 add_library(
   ${PROJECT_NAME}
   SHARED
-  src/linear_z.cpp
+  src/slider_hardware.cpp
   ${LIBMODBUS_CORE_FILES}
 )
 
@@ -124,6 +124,7 @@ ament_target_dependencies(
   pluginlib
   )
 
+pluginlib_export_plugin_description_file(hardware_interface slider_hardware.xml)
 
 install(
   TARGETS ${PROJECT_NAME}
@@ -189,7 +190,7 @@ ament_export_include_directories(
   include
 )
 ament_export_libraries(
-  linear_motion
+  ${PROJECT_NAME}
 )
 #ament_export_targets(
 #  export_${PROJECT_NAME}

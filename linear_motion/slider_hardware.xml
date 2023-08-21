@@ -1,0 +1,9 @@
+<library path="slider_hardware">
+  <class name="slider_hardware/SliderHardware"
+         type="slider_hardware::SliderHardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      The ROBOTIS slider system interface.
+    </description>
+  </class>
+</library>

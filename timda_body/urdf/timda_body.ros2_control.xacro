@@ -20,7 +20,7 @@
           <param name="state_following_offset">0.0</param>
         </xacro:if>
         <xacro:unless value="${use_fake_hardware}">
-          <plugin>linear_motion/SliderHardware</plugin>
+          <plugin>slider_hardware/SliderHardware</plugin>
           <param name="usb_port">${usb_port}</param>
           <param name="side">${side}</param>
           <param name="baud_rate">${baud_rate}</param>
