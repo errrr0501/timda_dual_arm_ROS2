@@ -164,9 +164,9 @@
 
   <xacro:arg name="left_arm_port" default="/dev/wrs/arm_left" />
 
-  <xacro:single_arm_ros2_control name = "right_single_arm_ros2_control" side = "r_" use_fake_hardware = "$(arg use_fake_hardware)" usb_port = "$(arg right_arm_port)"/>
+  <xacro:single_arm_ros2_control name = "right_single_arm_ros2_control" side = "r_" use_fake_hardware = "true" usb_port = "$(arg right_arm_port)"/>
 
-  <xacro:single_arm_ros2_control name = "left_single_arm_ros2_control" side = "l_" use_fake_hardware = "$(arg use_fake_hardware)" usb_port = "$(arg left_arm_port)"/>
+  <xacro:single_arm_ros2_control name = "left_single_arm_ros2_control" side = "l_" use_fake_hardware = "true" usb_port = "$(arg left_arm_port)"/>
   
   <xacro:mir_100_ros2_control prefix = "mobile_" name ="mir_100_ros2_control" />
 

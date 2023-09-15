@@ -101,7 +101,7 @@
     <child link="Arm_Base_R"/>
   </joint-->
 
-  <link name="Bin">
+  <!-- <link name="Bin">
     <inertial>
       <origin
       	xyz="0 0 0"
@@ -149,9 +149,11 @@
       rpy="0 0 1.5708" />
     <parent link="base_link"/>
     <child link="Bin"/>
-  </joint>
+  </joint> -->
 
   <xacro:arg name="use_fake_hardware" default="true" />
+
+  <xacro:arg name="use_real_hardware" default="false" />
 
   <xacro:arg name="right_arm_port" default="/dev/wrs/arm_right" />
 
@@ -163,9 +165,9 @@
   
   <xacro:mir_100_ros2_control prefix = "mobile_" name ="mir_100_ros2_control" />
 
-  <xacro:timda_body_ros2_control name ="right_slider_ros2_control"  side = "right" use_fake_hardware="$(arg use_fake_hardware)"/>
+  <xacro:timda_body_ros2_control name ="right_slider_ros2_control"  side = "right" use_fake_hardware="$(arg use_real_hardware)"/>
 
-  <xacro:timda_body_ros2_control name ="left_slider_ros2_control" side = "left" use_fake_hardware="$(arg use_fake_hardware)"/>
+  <xacro:timda_body_ros2_control name ="left_slider_ros2_control" side = "left" use_fake_hardware="$(arg use_real_hardware)"/>
 
   <xacro:suction_ros2_control name = "right_suction_ros2_control" side = "r_"/>
 

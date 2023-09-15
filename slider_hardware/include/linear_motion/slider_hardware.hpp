@@ -34,30 +34,30 @@ using hardware_interface::return_type;
 
 namespace slider_hardware
 {
-struct JointValue
-{
-  double position{0.0};
-  double velocity{0.0};
-  double effort{0.0};
-};
+// struct JointValue
+// {
+//   double position{0.0};
+//   double velocity{0.0};
+//   double effort{0.0};
+// };
 
-struct Joint
-{
-  JointValue state{};
-  JointValue command{};
-  JointValue prev_command{};
-};
+// struct Joint
+// {
+//   JointValue state{};
+//   JointValue command{};
+//   JointValue prev_command{};
+// };
 
-enum class ControlMode {
-  Position,
-  Velocity,
-  Torque,
-  Currrent,
-  ExtendedPosition,
-  MultiTurn,
-  CurrentBasedPosition,
-  PWM,
-};
+// enum class ControlMode {
+//   Position,
+//   Velocity,
+//   Torque,
+//   Currrent,
+//   ExtendedPosition,
+//   MultiTurn,
+//   CurrentBasedPosition,
+//   PWM,
+// };
 
 class SliderHardware
 : public hardware_interface::SystemInterface
@@ -99,25 +99,38 @@ public:
 //   boost::thread  *com_driver_thread_;
 
 private:
-  return_type enable_torque(const bool enabled);
+  // return_type enable_torque(const bool enabled);
 
-  return_type set_control_mode(const ControlMode & mode, const bool force_set = false);
+  // return_type set_control_mode(const ControlMode & mode, const bool force_set = false);
 
-  return_type reset_command();
+  // return_type reset_command();
 
-  CallbackReturn set_joint_positions();
-  CallbackReturn set_joint_velocities();
-  CallbackReturn set_joint_params();
+  // CallbackReturn set_joint_positions();
+  // CallbackReturn set_joint_velocities();
+  // CallbackReturn set_joint_params();
 
-  return_type write_command();
+  // return_type write_command();
+  void connect(std::string side, std::string usb_port, int baud_rate);
+  void write_commands();
+  void update_hardware_info();
 
 //   DynamixelWorkbench dynamixel_workbench_;
 //   std::map<const char * const, const ControlItem *> control_items_;
-  std::vector<Joint> joints_;
-  std::vector<uint8_t> joint_ids_;
-//   bool torque_enabled_{false};
-  ControlMode control_mode_{ControlMode::Position};
-  bool mode_changed_{false};
+//   std::vector<Joint> joints_;
+//   std::vector<uint8_t> joint_ids_;
+// //   bool torque_enabled_{false};
+//   ControlMode control_mode_{ControlMode::Position};
+//   bool mode_changed_{false};
+
+  // ROS Parameters
+  std::string serial_port_;
+  double polling_timeout_;
+  double wheel_diameter_, max_accel_, max_speed_;
+
+  // Store the command for the robot
+  std::vector<double> hw_commands_;
+  std::vector<double> hw_states_position_, hw_states_position_offset_, hw_states_velocity_;
+  uint8_t joint_index_;
 //   bool use_dummy_{false};
 };
 }  // namespace slider_hardware
